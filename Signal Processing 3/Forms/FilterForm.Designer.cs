@@ -172,6 +172,7 @@
             this.bPFilterButton.TabIndex = 6;
             this.bPFilterButton.Text = "Показать";
             this.bPFilterButton.UseVisualStyleBackColor = true;
+            this.bPFilterButton.Click += new System.EventHandler(this.bPFilterButton_Click_1);
             // 
             // bPFilterNnumericUpDown0
             // 

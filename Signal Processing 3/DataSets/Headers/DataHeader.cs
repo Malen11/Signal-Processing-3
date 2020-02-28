@@ -14,17 +14,17 @@ namespace Signal_Processing_3.DataSets.Headers
         /// <summary>
         /// Тип данных
         /// </summary>
-        public DataType Type { get; protected set; }
+        public DataType Type { get; set; }
 
         /// <summary>
         /// Количество элементов
         /// </summary>
-        public long Count { get; protected set; }
+        public long Count { get; set; }
 
         /// <summary>
         /// Частота
         /// </summary>
-        public double Hz { get; protected set; }
+        public double Hz { get; set; }
 
         /// <summary>
         /// Конструктор по-умолчанию

@@ -14,9 +14,9 @@ namespace Signal_Processing_3
     {
         double[] data;
         SpectrumType type;
-        int Hz;
+        double Hz;
 
-        public showSpectrumForm(double[] data, string name, SpectrumType type, int Hz, long execTime = 0)
+        public showSpectrumForm(double[] data, string name, SpectrumType type, double Hz, long execTime = 0)
         {
             InitializeComponent();
 
@@ -37,10 +37,10 @@ namespace Signal_Processing_3
             }
 
             minNumericUpDown.Minimum = minNumericUpDown.Minimum = 0;
-            maxNumericUpDown.Maximum = maxNumericUpDown.Maximum = Hz;
+            maxNumericUpDown.Maximum = maxNumericUpDown.Maximum = (int)Hz;
 
             minNumericUpDown.Value = 0;
-            maxNumericUpDown.Value = Hz;
+            maxNumericUpDown.Value = (int)Hz;
 
             dataChart.ChartAreas[0].AxisX.Interval = 10;
 

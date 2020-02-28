@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Signal_Processing_3.DataSets.Headers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,41 +14,41 @@ namespace Signal_Processing_3
     public partial class ShowChartForm : Form
     {
         double[] data;
-        DataHeader header;
+        DataType type;
         double step;
 
-        public ShowChartForm(double[] data, string name, DataHeader header)
+        public ShowChartForm(double[] data, string name, DataType type, double Hz = 360.0)
         {
             InitializeComponent();
 
             this.Text = name;
             this.data = data;
-            this.header = header;
+            this.type = type;
 
-            switch (header.type)
+            switch (type)
             {
                 case DataType.Test:
-                    SetTestChartParams();
+                    SetTestChartParams(Hz);
                     break;
 
                 case DataType.Cardio:
-                    SetCardioChartParams();
+                    SetCardioChartParams(Hz);
                     break;
 
                 case DataType.Reo:
-                    SetReoChartParams();
+                    SetReoChartParams(Hz);
                     break;
 
                 case DataType.Velo:
-                    SetVeloChartParams();
+                    SetVeloChartParams(Hz);
                     break;
 
                 case DataType.Spiro:
-                    SetSpiroChartParams();
+                    SetSpiroChartParams(Hz);
                     break;
 
                 case DataType.Audio:
-                    SetAudioChartParams(((WAVHeader)header).sampleRate);
+                    SetAudioChartParams(Hz);
                     break;
 
                 default:
@@ -98,18 +99,18 @@ namespace Signal_Processing_3
             }
         }
 
-        private void SetTestChartParams()
+        private void SetTestChartParams(double Hz)
         {
-            step = 1.0 / 360;
+            step = 1.0 / Hz;
 
             dataChart.ChartAreas[0].AxisX.Title = "cек";
             dataChart.ChartAreas[0].AxisX.Minimum = 0;
             dataChart.ChartAreas[0].AxisX.Maximum = 2.0;
         }
 
-        private void SetCardioChartParams()
+        private void SetCardioChartParams(double Hz)
         {
-            step = 1.0 / 360;
+            step = 1.0 / Hz;
 
             dataChart.ChartAreas[0].AxisX.Title = "cек";
             dataChart.ChartAreas[0].AxisX.Minimum = 0;
@@ -119,9 +120,9 @@ namespace Signal_Processing_3
             //dataChart.ChartAreas[0].AxisY.Maximum = Math.Round((data.Max() - 127) / 60.0, MidpointRounding.AwayFromZero) + 0.5;
         }
 
-        private void SetReoChartParams()
+        private void SetReoChartParams(double Hz)
         {
-            step = 1.0 / 360;
+            step = 1.0 / Hz;
 
             dataChart.ChartAreas[0].AxisX.Title = "cек";
             dataChart.ChartAreas[0].AxisX.Minimum = 0;
@@ -129,9 +130,9 @@ namespace Signal_Processing_3
             dataChart.ChartAreas[0].AxisY.Title = "мОм";
         }
 
-        private void SetVeloChartParams()
+        private void SetVeloChartParams(double Hz)
         {
-            step = 1.0 / 360;
+            step = 1.0 / Hz;
 
             dataChart.ChartAreas[0].AxisX.Title = "cек";
             dataChart.ChartAreas[0].AxisX.Minimum = 0;
@@ -139,9 +140,9 @@ namespace Signal_Processing_3
             dataChart.ChartAreas[0].AxisY.Title = "мВ";
         }
 
-        private void SetSpiroChartParams()
+        private void SetSpiroChartParams(double Hz)
         {
-            step = 1.0 / 360;
+            step = 1.0 / Hz;
 
             dataChart.ChartAreas[0].AxisX.Title = "cек";
             dataChart.ChartAreas[0].AxisX.Minimum = 0;
@@ -149,17 +150,17 @@ namespace Signal_Processing_3
             dataChart.ChartAreas[0].AxisY.Title = "Л";
         }
 
-        private void SetAmplitudeChartParams()
+        private void SetAmplitudeChartParams(double Hz)
         {
-            step = 1.0 / 360;
+            step = 1.0 / Hz;
 
             dataChart.ChartAreas[0].AxisX.Title = "Номера отсчётов";
             dataChart.ChartAreas[0].AxisX.Minimum = 0;
         }
 
-        private void SetAudioChartParams(double deepth)
+        private void SetAudioChartParams(double Hz)
         {
-            step = 1.0 / deepth;
+            step = 1.0 / Hz;
 
             dataChart.ChartAreas[0].AxisX.Title = "Сек";
         }

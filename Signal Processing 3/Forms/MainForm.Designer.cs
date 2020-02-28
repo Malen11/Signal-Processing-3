@@ -164,6 +164,7 @@
             this.showAmplitudeSpectrumFTSButton.TabIndex = 16;
             this.showAmplitudeSpectrumFTSButton.Text = "Амплитудный спектр (ДПФу)";
             this.showAmplitudeSpectrumFTSButton.UseVisualStyleBackColor = true;
+            this.showAmplitudeSpectrumFTSButton.Click += new System.EventHandler(this.showAmplitudeSpectrumFTSButton_Click);
             // 
             // showAmplitudeSpectrumFFTButton
             // 

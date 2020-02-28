@@ -76,9 +76,7 @@
     <Compile Include="DataSets\Headers\Writers\SimpleDataHeaderWriter.cs" />
     <Compile Include="DataSets\Readers\AudioDataSetReader.cs" />
     <Compile Include="DataSets\Readers\SimpleDataSetReader.cs" />
-    <Compile Include="DataSets\Readers\DataSetReader.cs" />
     <Compile Include="DataSets\Writers\AudioDataSetWriter.cs" />
-    <Compile Include="DataSets\Writers\SimpleDataSetWriter - Копировать.cs" />
     <Compile Include="DataSets\Writers\SimpleDataSetWriter.cs" />
     <Compile Include="DataType.cs" />
     <Compile Include="DataSets\DataSet.cs" />

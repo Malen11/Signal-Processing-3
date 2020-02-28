@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Signal_Processing_3.Classes.Filters;
+using Signal_Processing_3.DataSets.Readers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +16,8 @@ namespace Signal_Processing_3
 {
     public partial class MainForm : Form
     {
-        private DataSet dataSet;
+        private DataSets.DataSet dataSet;
+        private string filePath;
 
         /// <summary>
         /// Конструктор
@@ -24,6 +27,7 @@ namespace Signal_Processing_3
             InitializeComponent();
 
             dataSet = null;
+            filePath = null;
 
             fileNameLabel.Text = "Файл не выбран";
         }
@@ -40,7 +44,7 @@ namespace Signal_Processing_3
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    String filePath = openFileDialog.FileName;
+                    filePath = openFileDialog.FileName;
                     DataType type;
 
                     var button = (Button)sender;
@@ -75,10 +79,17 @@ namespace Signal_Processing_3
                             throw new ArgumentException("Необрабатываемое нажатие клавиши");
                     }
 
-                    var fileData = DataReader.GetDataFromFile(filePath, type);
 
-                    header = fileData.header;
-                    data = fileData.data;
+                    if(type == DataType.Audio)
+                    {
+                        AudioDataSetReader dataSetReader = new AudioDataSetReader();
+                        dataSet = dataSetReader.GetDataSet(filePath);
+                    }
+                    else
+                    {
+                        SimpleDataSetReader dataSetReader = new SimpleDataSetReader();
+                        dataSet = dataSetReader.GetDataSet(filePath, type);
+                    }
 
                     fileNameLabel.Text = filePath;
 
@@ -87,8 +98,8 @@ namespace Signal_Processing_3
             }
             catch (Exception ex)
             {
-                data = null;
-                header = null;
+                dataSet = null;
+                filePath = null;
                 fileNameLabel.Text = "Файл не загружен";
 
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -104,12 +115,13 @@ namespace Signal_Processing_3
         {
             try
             {
-                if (data == null)
+                if (dataSet == null)
                 {
                     throw new NullReferenceException("Данные не были загруженны!");
                 }
 
-                var form = new ShowChartForm(data, header.filePath.Split('/').Last(), header.type, header);
+                ShowChartForm form = new ShowChartForm(dataSet.Data, filePath.Split('/').Last(), dataSet.Header.Type, dataSet.Header.Hz);
+
                 form.Show();
             }
             catch (Exception ex)
@@ -191,6 +203,8 @@ namespace Signal_Processing_3
 
             try
             {
+                double[] data = dataSet.Data;
+
                 double powerD = Math.Log(data.Count(), 2);
                 int power = (int)Math.Round(powerD);
                 int newSize = (int)Math.Pow(2, power);
@@ -198,11 +212,10 @@ namespace Signal_Processing_3
                 double[] resizedData = Utils.ResizeData<double>(data, newSize);
 
                 watch.Start();
-                (double Ak, double Bk)[] coef0 = FourierTransform.FastFourierTransform(resizedData).Select(x => (2 * x.Re, 2 * x.Im)).ToArray();
-                double[] amplSpec0 = FourierTransform.AmplitudeSpectrum(coef0);
+                double[] amplSpec0 =  FourierTransform.AmplitudeSpectrum(data, FourierTransformType.Fast);
                 watch.Stop();
 
-                var form0 = new showSpectrumForm(amplSpec0, "Амплитудный спектр БПФ", SpectrumType.Amplitude, ((WAVHeader)header).sampleRate, watch.ElapsedMilliseconds);
+                var form0 = new showSpectrumForm(amplSpec0, "Амплитудный спектр БПФ", SpectrumType.Amplitude, dataSet.Header.Hz, watch.ElapsedMilliseconds);
                 form0.Show();
             }
             catch (Exception ex)
@@ -272,15 +285,19 @@ namespace Signal_Processing_3
         {
             try
             {
+                double[] data = dataSet.Data;
                 double powerD = Math.Log(data.Count(), 2);
                 int power = (int)Math.Round(powerD);
                 int newSize = (int)Math.Pow(2, power);
 
                 double[] resizedData = Utils.ResizeData<double>(data, newSize);
 
-                if (header.type == DataType.Audio)
+                DataSets.DataSet resizedDataSet = new DataSets.DataSet(dataSet);
+                res
+
+                if (dataSet.Header.Type == DataType.Audio)
                 {
-                    var form = new FilterForm(resizedData, header.filePath, header.type, header);
+                    var form = new FilterForm(resizedData, filePath, dataSet.Header.Type, dataSet.Header.Hz);
                     form.ShowDialog();
                 }
                 else
@@ -294,6 +311,11 @@ namespace Signal_Processing_3
             {
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void showAmplitudeSpectrumFTSButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -30,5 +30,11 @@ namespace Signal_Processing_3.DataSets
             Header = (DataHeader)dataSet.Header.Clone();
             Data = (double[])dataSet.Data.Clone();
         }
+
+        public void setData(double[] data)
+        {
+            Data = data;
+            Header.Count = data.LongLength;
+        }
     }
 }

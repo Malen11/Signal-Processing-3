@@ -12,24 +12,20 @@ namespace Signal_Processing_3
 {
     public partial class FilterForm : Form
     {
-        private double[] data;
-        private DataHeader header;
+        private DataSets.DataSet dataSet;
         private string name;
-        private DataType type;
 
-        public FilterForm(double[] data, string name, DataType type, DataHeader header)
+        public FilterForm(DataSets.DataSet dataSet, string name)
         {
             InitializeComponent();
 
-            this.data = data;
+            this.dataSet = dataSet;
             this.name = name;
-            this.type = type;
-            this.header = header;
 
             notchNumericUpDown0.Minimum = notchNumericUpDown1.Minimum = bPFilterNnumericUpDown0.Minimum = 
                 bPFilterNumericUpDown1.Minimum = hPFilterNumericUpDown.Minimum = lPFilterNumericUpDown.Minimum = 0;
             notchNumericUpDown0.Maximum = notchNumericUpDown1.Maximum = bPFilterNnumericUpDown0.Maximum = 
-                bPFilterNumericUpDown1.Maximum = hPFilterNumericUpDown.Maximum = lPFilterNumericUpDown.Maximum = data.Length / 2;
+                bPFilterNumericUpDown1.Maximum = hPFilterNumericUpDown.Maximum = lPFilterNumericUpDown.Maximum = dataSet.Data.Length / 2;
 
             notchComboBox.SelectedIndex = bPFilterComboBox.SelectedIndex = hPFilterComboBox.SelectedIndex = lPFilterComboBox.SelectedIndex = 0;
         }
@@ -39,10 +35,10 @@ namespace Signal_Processing_3
             int threshold = (int)lPFilterNumericUpDown.Value;
             if(lPFilterComboBox.Text == "Гц")
             {
-                threshold = (int)(threshold / (360.0 / data.Count()));
+                threshold = (int)(threshold / (360.0 / dataSet.Data.Count()));
             }
 
-            var filteredData = FourierTransform.LPFilter(data, threshold);
+            var filteredData = FourierTransform.LPFilter(dataSet.Data, threshold);
 
             var form = new ShowChartForm(filteredData, name + " НЧ фильтр", type);
             form.Show();
@@ -94,6 +90,11 @@ namespace Signal_Processing_3
 
             var form = new ShowChartForm(filteredData, name + " режекторный фильтр", type);
             form.Show();
+        }
+
+        private void bPFilterButton_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
