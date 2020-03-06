@@ -1,4 +1,4 @@
-﻿namespace Signal_Processing_3
+﻿namespace Signal_Processing_3.Forms
 {
     partial class MainForm
     {
@@ -37,6 +37,7 @@
             this.fileNameLabel = new System.Windows.Forms.Label();
             this.selectFileButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.showAmplitudeSpectrumBFTButton = new System.Windows.Forms.Button();
             this.showAmplitudeSpectrumFTSButton = new System.Windows.Forms.Button();
             this.showAmplitudeSpectrumFFTButton = new System.Windows.Forms.Button();
             this.showBaseSignalButton = new System.Windows.Forms.Button();
@@ -144,6 +145,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.showAmplitudeSpectrumBFTButton);
             this.groupBox3.Controls.Add(this.showAmplitudeSpectrumFTSButton);
             this.groupBox3.Controls.Add(this.showAmplitudeSpectrumFFTButton);
             this.groupBox3.Controls.Add(this.showBaseSignalButton);
@@ -156,25 +158,35 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Основные операции";
             // 
+            // showAmplitudeSpectrumBFTButton
+            // 
+            this.showAmplitudeSpectrumBFTButton.Location = new System.Drawing.Point(6, 72);
+            this.showAmplitudeSpectrumBFTButton.Name = "showAmplitudeSpectrumBFTButton";
+            this.showAmplitudeSpectrumBFTButton.Size = new System.Drawing.Size(120, 40);
+            this.showAmplitudeSpectrumBFTButton.TabIndex = 17;
+            this.showAmplitudeSpectrumBFTButton.Text = "Амплитудный спектр (ПФ)";
+            this.showAmplitudeSpectrumBFTButton.UseVisualStyleBackColor = true;
+            this.showAmplitudeSpectrumBFTButton.Click += new System.EventHandler(this.showAmplitudeSpectrumButton_Click);
+            // 
             // showAmplitudeSpectrumFTSButton
             // 
-            this.showAmplitudeSpectrumFTSButton.Location = new System.Drawing.Point(132, 72);
+            this.showAmplitudeSpectrumFTSButton.Location = new System.Drawing.Point(263, 72);
             this.showAmplitudeSpectrumFTSButton.Name = "showAmplitudeSpectrumFTSButton";
             this.showAmplitudeSpectrumFTSButton.Size = new System.Drawing.Size(120, 40);
             this.showAmplitudeSpectrumFTSButton.TabIndex = 16;
             this.showAmplitudeSpectrumFTSButton.Text = "Амплитудный спектр (ДПФу)";
             this.showAmplitudeSpectrumFTSButton.UseVisualStyleBackColor = true;
-            this.showAmplitudeSpectrumFTSButton.Click += new System.EventHandler(this.showAmplitudeSpectrumFTSButton_Click);
+            this.showAmplitudeSpectrumFTSButton.Click += new System.EventHandler(this.showAmplitudeSpectrumButton_Click);
             // 
             // showAmplitudeSpectrumFFTButton
             // 
-            this.showAmplitudeSpectrumFFTButton.Location = new System.Drawing.Point(6, 72);
+            this.showAmplitudeSpectrumFFTButton.Location = new System.Drawing.Point(137, 72);
             this.showAmplitudeSpectrumFFTButton.Name = "showAmplitudeSpectrumFFTButton";
             this.showAmplitudeSpectrumFFTButton.Size = new System.Drawing.Size(120, 40);
             this.showAmplitudeSpectrumFFTButton.TabIndex = 15;
             this.showAmplitudeSpectrumFFTButton.Text = "Амплитудный спектр (БПФ)";
             this.showAmplitudeSpectrumFFTButton.UseVisualStyleBackColor = true;
-            this.showAmplitudeSpectrumFFTButton.Click += new System.EventHandler(this.showAmplitudeSpectrumFFTButton_Click);
+            this.showAmplitudeSpectrumFFTButton.Click += new System.EventHandler(this.showAmplitudeSpectrumButton_Click);
             // 
             // showBaseSignalButton
             // 
@@ -325,6 +337,7 @@
         private System.Windows.Forms.Label minValueLabel;
         private System.Windows.Forms.Button showTestAmplitudeSpectrumButton;
         private System.Windows.Forms.Label maxValueLabel;
+        private System.Windows.Forms.Button showAmplitudeSpectrumBFTButton;
     }
 }
 

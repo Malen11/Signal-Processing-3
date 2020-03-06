@@ -1,4 +1,4 @@
-﻿namespace Signal_Processing_3
+﻿namespace Signal_Processing_3.Forms
 {
     partial class showSpectrumForm
     {

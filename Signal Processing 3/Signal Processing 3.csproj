@@ -69,18 +69,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomWAV.cs" />
-    <Compile Include="DataSets\Headers\DataHeader.cs" />
-    <Compile Include="DataSets\Headers\Readers\SimpleDataHeaderReader.cs" />
-    <Compile Include="DataSets\Headers\Readers\WAVDataHeaderReader.cs" />
-    <Compile Include="DataSets\Headers\Writers\SimpleDataHeaderWriter.cs" />
-    <Compile Include="DataSets\Readers\AudioDataSetReader.cs" />
-    <Compile Include="DataSets\Readers\SimpleDataSetReader.cs" />
-    <Compile Include="DataSets\Writers\AudioDataSetWriter.cs" />
-    <Compile Include="DataSets\Writers\SimpleDataSetWriter.cs" />
-    <Compile Include="DataType.cs" />
-    <Compile Include="DataSets\DataSet.cs" />
-    <Compile Include="DataSets\Headers\Writers\WAVDataHeaderWriter.cs" />
+    <Compile Include="Filters\FilterType.cs" />
+    <Compile Include="Signals\DataConverter.cs" />
+    <Compile Include="Signals\SignalUtils.cs" />
+    <Compile Include="Signals\Readers\SignalReader.cs" />
+    <Compile Include="Signals\AudioSignal.cs" />
+    <Compile Include="Signals\Writers\SignalWriter.cs" />
+    <Compile Include="Signals\DataType.cs" />
+    <Compile Include="Signals\SimpleSignal.cs" />
     <Compile Include="Forms\FilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,8 +105,7 @@
       <DependentUpon>showSpectrumForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SpectrumTypeState.cs" />
-    <Compile Include="Utils\Utils.cs" />
-    <Compile Include="DataSets\Headers\WAVDataHeader.cs" />
+    <Compile Include="Filters\FilterUtils.cs" />
     <EmbeddedResource Include="Forms\FilterForm.resx">
       <DependentUpon>FilterForm.cs</DependentUpon>
     </EmbeddedResource>

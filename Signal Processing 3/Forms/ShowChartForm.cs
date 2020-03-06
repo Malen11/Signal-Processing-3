@@ -1,4 +1,4 @@
-﻿using Signal_Processing_3.DataSets.Headers;
+﻿using Signal_Processing_3.Signals;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Signal_Processing_3
+namespace Signal_Processing_3.Forms
 {
     public partial class ShowChartForm : Form
     {
@@ -17,7 +17,7 @@ namespace Signal_Processing_3
         DataType type;
         double step;
 
-        public ShowChartForm(double[] data, string name, DataType type, double Hz = 360.0)
+        public ShowChartForm(double[] data, string name, DataType type, double Hz)
         {
             InitializeComponent();
 

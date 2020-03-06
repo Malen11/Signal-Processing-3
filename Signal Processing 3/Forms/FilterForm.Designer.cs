@@ -1,4 +1,4 @@
-﻿namespace Signal_Processing_3
+﻿namespace Signal_Processing_3.Forms
 {
     partial class FilterForm
     {
@@ -54,6 +54,11 @@
             this.lPFilterButton = new System.Windows.Forms.Button();
             this.saveToFileCheckBox = new System.Windows.Forms.CheckBox();
             this.filePathTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.fTSRadioButton = new System.Windows.Forms.RadioButton();
+            this.fFTRadioButton = new System.Windows.Forms.RadioButton();
+            this.bFTRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.notchNumericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.notchNumericUpDown0)).BeginInit();
@@ -64,6 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.hPFilterNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lPFilterNumericUpDown)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox4
@@ -105,6 +111,7 @@
             this.notchButton.TabIndex = 6;
             this.notchButton.Text = "Показать";
             this.notchButton.UseVisualStyleBackColor = true;
+            this.notchButton.Click += new System.EventHandler(this.notchFilterButton_Click);
             // 
             // notchNumericUpDown0
             // 
@@ -172,7 +179,7 @@
             this.bPFilterButton.TabIndex = 6;
             this.bPFilterButton.Text = "Показать";
             this.bPFilterButton.UseVisualStyleBackColor = true;
-            this.bPFilterButton.Click += new System.EventHandler(this.bPFilterButton_Click_1);
+            this.bPFilterButton.Click += new System.EventHandler(this.bPFilterButton_Click);
             // 
             // bPFilterNnumericUpDown0
             // 
@@ -229,6 +236,7 @@
             this.hPFilterButton.TabIndex = 6;
             this.hPFilterButton.Text = "Показать";
             this.hPFilterButton.UseVisualStyleBackColor = true;
+            this.hPFilterButton.Click += new System.EventHandler(this.hPFilterButton_Click);
             // 
             // hPFilterComboBox
             // 
@@ -309,6 +317,7 @@
             this.saveToFileCheckBox.TabIndex = 13;
             this.saveToFileCheckBox.Text = "Сохранить результат в файл";
             this.saveToFileCheckBox.UseVisualStyleBackColor = true;
+            this.saveToFileCheckBox.CheckedChanged += new System.EventHandler(this.saveToFileCheckBox_CheckedChanged);
             // 
             // filePathTextBox
             // 
@@ -318,11 +327,69 @@
             this.filePathTextBox.Size = new System.Drawing.Size(244, 20);
             this.filePathTextBox.TabIndex = 14;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.radioButton4);
+            this.groupBox5.Controls.Add(this.fTSRadioButton);
+            this.groupBox5.Controls.Add(this.fFTRadioButton);
+            this.groupBox5.Controls.Add(this.bFTRadioButton);
+            this.groupBox5.Location = new System.Drawing.Point(439, 12);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(167, 298);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Фильтр";
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(6, 88);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(85, 17);
+            this.radioButton4.TabIndex = 3;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "radioButton4";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // fTSRadioButton
+            // 
+            this.fTSRadioButton.AutoSize = true;
+            this.fTSRadioButton.Location = new System.Drawing.Point(6, 65);
+            this.fTSRadioButton.Name = "fTSRadioButton";
+            this.fTSRadioButton.Size = new System.Drawing.Size(52, 17);
+            this.fTSRadioButton.TabIndex = 2;
+            this.fTSRadioButton.TabStop = true;
+            this.fTSRadioButton.Text = "ПФУ";
+            this.fTSRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // fFTRadioButton
+            // 
+            this.fFTRadioButton.AutoSize = true;
+            this.fFTRadioButton.Location = new System.Drawing.Point(6, 42);
+            this.fFTRadioButton.Name = "fFTRadioButton";
+            this.fFTRadioButton.Size = new System.Drawing.Size(51, 17);
+            this.fFTRadioButton.TabIndex = 1;
+            this.fFTRadioButton.TabStop = true;
+            this.fFTRadioButton.Text = "БПФ";
+            this.fFTRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // bFTRadioButton
+            // 
+            this.bFTRadioButton.AutoSize = true;
+            this.bFTRadioButton.Location = new System.Drawing.Point(6, 19);
+            this.bFTRadioButton.Name = "bFTRadioButton";
+            this.bFTRadioButton.Size = new System.Drawing.Size(59, 17);
+            this.bFTRadioButton.TabIndex = 0;
+            this.bFTRadioButton.TabStop = true;
+            this.bFTRadioButton.Text = "Фурье";
+            this.bFTRadioButton.UseVisualStyleBackColor = true;
+            // 
             // FilterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 321);
+            this.ClientSize = new System.Drawing.Size(618, 321);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.filePathTextBox);
             this.Controls.Add(this.saveToFileCheckBox);
             this.Controls.Add(this.groupBox4);
@@ -346,6 +413,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lPFilterNumericUpDown)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -379,5 +448,10 @@
         private System.Windows.Forms.Button lPFilterButton;
         private System.Windows.Forms.CheckBox saveToFileCheckBox;
         private System.Windows.Forms.TextBox filePathTextBox;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton fTSRadioButton;
+        private System.Windows.Forms.RadioButton fFTRadioButton;
+        private System.Windows.Forms.RadioButton bFTRadioButton;
     }
 }

@@ -1,5 +1,6 @@
-﻿using Signal_Processing_3.Classes.Filters;
-using Signal_Processing_3.DataSets.Readers;
+﻿using Signal_Processing_3.Filters;
+using Signal_Processing_3.Signals;
+using Signal_Processing_3.Signals.Readers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,11 +13,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Signal_Processing_3
+namespace Signal_Processing_3.Forms
 {
     public partial class MainForm : Form
     {
-        private DataSets.DataSet dataSet;
+        private SimpleSignal signal;
         private string filePath;
 
         /// <summary>
@@ -26,7 +27,7 @@ namespace Signal_Processing_3
         {
             InitializeComponent();
 
-            dataSet = null;
+            signal = null;
             filePath = null;
 
             fileNameLabel.Text = "Файл не выбран";
@@ -50,8 +51,7 @@ namespace Signal_Processing_3
                     var button = (Button)sender;
                     switch (button.Name)
                     {
-                        case "selectTestFileButton":
-                            //writeFile();
+                        case "selectFileButton":
                             type = DataType.Test;
                             break;
 
@@ -79,16 +79,15 @@ namespace Signal_Processing_3
                             throw new ArgumentException("Необрабатываемое нажатие клавиши");
                     }
 
+                    SignalReader signalReader = new SignalReader();
 
                     if(type == DataType.Audio)
                     {
-                        AudioDataSetReader dataSetReader = new AudioDataSetReader();
-                        dataSet = dataSetReader.GetDataSet(filePath);
+                        signal = signalReader.ReadAudioSignalFromFile(filePath);
                     }
                     else
                     {
-                        SimpleDataSetReader dataSetReader = new SimpleDataSetReader();
-                        dataSet = dataSetReader.GetDataSet(filePath, type);
+                        signal = signalReader.ReadSimpleSignalFromFile(filePath, type, 360.0);
                     }
 
                     fileNameLabel.Text = filePath;
@@ -98,7 +97,7 @@ namespace Signal_Processing_3
             }
             catch (Exception ex)
             {
-                dataSet = null;
+                signal = null;
                 filePath = null;
                 fileNameLabel.Text = "Файл не загружен";
 
@@ -115,12 +114,12 @@ namespace Signal_Processing_3
         {
             try
             {
-                if (dataSet == null)
+                if (signal == null)
                 {
                     throw new NullReferenceException("Данные не были загруженны!");
                 }
 
-                ShowChartForm form = new ShowChartForm(dataSet.Data, filePath.Split('/').Last(), dataSet.Header.Type, dataSet.Header.Hz);
+                ShowChartForm form = new ShowChartForm(signal.Data, filePath.Split('/').Last(), signal.Type, signal.Hz);
 
                 form.Show();
             }
@@ -130,92 +129,50 @@ namespace Signal_Processing_3
             }
         }
 
-        //private void showAmplitudeSpectrumButton_Click(object sender, EventArgs e)
-        //{
-        //    Stopwatch watch = new Stopwatch();
-
-        //    try
-        //    {
-        //        int N = data.Count();
-
-        //        double powerD = Math.Log(N, 2.0);
-
-        //        int power, M, err;
-
-        //        power = (int)powerD;
-
-        //        double[] resizedData = ResizeData(data, (int)(Math.Pow(2, power)));
-
-        //        (double Re, double Im)[] exponentData = resizedData.Select(x => (x, 0.0)).ToArray();
-
-        //        watch.Start();
-        //        double[] coef0 = Walsh.Transform(resizedData);
-        //        double[] amplSpec0 = Walsh.AmplitudeSpectrum(coef0);
-        //        watch.Stop();
-        //        var form0 = new showSpectrumForm(amplSpec0, "Амплитудный спектр Уолш", SpectrumType.Amplitude, amplSpec0.Length, watch.ElapsedMilliseconds);
-        //        form0.Show();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
-
-        //private void showPhaseSpectrumButton_Click(object sender, EventArgs e)
-        //{
-        //    Stopwatch watch = new Stopwatch();
-
-        //    try
-        //    {
-        //        int N = data.Count();
-
-        //        double powerD = Math.Log(N, 2.0);
-
-        //        int power;
-
-        //        power = (int)powerD;
-
-        //        double[] resizedData = ResizeData(data, (int)(Math.Pow(2, power)));
-
-        //        (double Re, double Im)[] exponentData = resizedData.Select(x => (x, 0.0)).ToArray();
-
-        //        watch.Start();
-        //        double[] coef0 = Walsh.Transform(resizedData);
-        //        double[] phaseSpec0 = Walsh.PhaseSpectrum(coef0);
-        //        watch.Stop();
-        //        var form0 = new showSpectrumForm(phaseSpec0, "Фазовый спектр Уолш", SpectrumType.Phase, phaseSpec0.Length, watch.ElapsedMilliseconds);
-        //        form0.Show();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
-
         /// <summary>
         /// Обработчик нажатия кнопки "Амплитудный спектр (БПФ)"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void showAmplitudeSpectrumFFTButton_Click(object sender, EventArgs e)
+        private void showAmplitudeSpectrumButton_Click(object sender, EventArgs e)
         {
             Stopwatch watch = new Stopwatch();
 
             try
             {
-                double[] data = dataSet.Data;
+                FilterType type;
+                double[] preparedData;
+                string label; 
 
-                double powerD = Math.Log(data.Count(), 2);
-                int power = (int)Math.Round(powerD);
-                int newSize = (int)Math.Pow(2, power);
+                var button = (Button)sender;
+                switch (button.Name)
+                {
+                    case "showAmplitudeSpectrumBFTButton":
+                        type = FilterType.FourierBase;
+                        label = "Амплитудный спектр ПФ";
+                        break;
 
-                double[] resizedData = Utils.ResizeData<double>(data, newSize);
+                    case "showAmplitudeSpectrumFFTButton":
+                        type = FilterType.FourierFast;
+                        label = "Амплитудный спектр БПФ";
+                        break;
+
+                    case "showAmplitudeSpectrumFTSButton":
+                        type = FilterType.FourierSpeed;
+                        label = "Амплитудный спектр ПФУ";
+                        break;
+
+                    default:
+                        throw new ArgumentException();
+                }
+
+                preparedData = FiltersUtils.PrepareDataToFilter(signal.Data, type);
 
                 watch.Start();
-                double[] amplSpec0 =  FourierTransform.AmplitudeSpectrum(data, FourierTransformType.Fast);
+                double[] amplSpec = FourierTransform.AmplitudeSpectrum(preparedData, type);
                 watch.Stop();
 
-                var form0 = new showSpectrumForm(amplSpec0, "Амплитудный спектр БПФ", SpectrumType.Amplitude, dataSet.Header.Hz, watch.ElapsedMilliseconds);
+                var form0 = new showSpectrumForm(amplSpec, label, SpectrumType.Amplitude, signal.Hz, watch.ElapsedMilliseconds);
                 form0.Show();
             }
             catch (Exception ex)
@@ -223,58 +180,6 @@ namespace Signal_Processing_3
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        //private void showAmplitudeSpectrumFTSButton_Click(object sender, EventArgs e)
-        //{
-        //    Stopwatch watch = new Stopwatch();
-
-        //    try
-        //    {
-        //        int N = data.Count();
-
-        //        double powerD = Math.Log(N, 2.0);
-
-        //        int power, M, err;
-
-        //        power = 1;
-        //        M = 1;
-        //        err = (int)(N - Math.Pow(2, power) * M);
-
-        //        for (int selectedPower = 1, selectedM = 1, selectedErr = 0; Math.Pow(2, selectedPower) < N / 2; selectedPower++)
-        //        {
-        //            selectedM = (int)Math.Round((double)N / Math.Pow(2, selectedPower));
-        //            selectedErr = (int)(N - Math.Pow(2, selectedPower) * selectedM);
-        //            if (Math.Abs(selectedErr) <= Math.Abs(err) && selectedM < Math.Pow(2, selectedPower))
-        //            {
-        //                M = selectedM;
-        //                power = selectedPower;
-        //                err = selectedErr;
-        //            }
-        //        }
-
-        //        double[] resizedData = ResizeData(data, (int)(Math.Pow(2, power) * M));
-
-        //        (double Re, double Im)[] exponentData = resizedData.Select(x => (x, 0.0)).ToArray();
-
-        //        watch.Start();
-        //        (double Ak, double Bk)[] coef0 = FourierTransform.FourierTransformSpeed(exponentData).Select(x => (2 * x.Re, 2 * x.Im)).ToArray();
-        //        double[] amplSpec0 = FourierTransform.AmplitudeSpectrum(coef0);
-        //        watch.Stop();
-        //        var form0 = new showSpectrumForm(amplSpec0, "Амплитудный спектр ДПФу", SpectrumType.Amplitude, 360, watch.ElapsedMilliseconds);
-        //        form0.Show();
-
-        //        watch.Start();
-        //        (double Ak, double Bk)[] coef1 = FourierTransform.FourierTransformCoefficient(resizedData);
-        //        double[] amplSpec1 = FourierTransform.AmplitudeSpectrum(coef1);
-        //        watch.Stop();
-        //        var form1 = new showSpectrumForm(amplSpec1, "Амплитудный спектр ДПФ", SpectrumType.Amplitude, 360, watch.ElapsedMilliseconds);
-        //        form1.Show();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
 
         /// <summary>
         /// Обработчик нажатия кнопки "Фильтрация"
@@ -285,37 +190,13 @@ namespace Signal_Processing_3
         {
             try
             {
-                double[] data = dataSet.Data;
-                double powerD = Math.Log(data.Count(), 2);
-                int power = (int)Math.Round(powerD);
-                int newSize = (int)Math.Pow(2, power);
-
-                double[] resizedData = Utils.ResizeData<double>(data, newSize);
-
-                DataSets.DataSet resizedDataSet = new DataSets.DataSet(dataSet);
-                res
-
-                if (dataSet.Header.Type == DataType.Audio)
-                {
-                    var form = new FilterForm(resizedData, filePath, dataSet.Header.Type, dataSet.Header.Hz);
-                    form.ShowDialog();
-                }
-                else
-                {
-                    var form = new FilterForm(resizedData, header.filePath, header.type);
-                    form.ShowDialog();
-                }
+                var form = new FilterForm(signal, filePath);
+                form.ShowDialog();
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void showAmplitudeSpectrumFTSButton_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

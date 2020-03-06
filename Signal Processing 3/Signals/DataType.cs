@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Signal_Processing_3
+namespace Signal_Processing_3.Signals
 {
     /// <summary>
     /// Типы входных данных

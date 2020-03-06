@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Signal_Processing_3
+namespace Signal_Processing_3.Forms
 {
     public partial class showSpectrumForm : Form
     {
