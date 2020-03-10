@@ -70,6 +70,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Filters\FilterType.cs" />
+    <Compile Include="Filters\FiniteImpulseResponse.cs" />
+    <Compile Include="Forms\FirFilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FirFilterForm.Designer.cs">
+      <DependentUpon>FirFilterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Signals\DataConverter.cs" />
     <Compile Include="Signals\SignalUtils.cs" />
     <Compile Include="Signals\Readers\SignalReader.cs" />
@@ -98,16 +105,19 @@
     <Compile Include="Forms\ShowChartForm.Designer.cs">
       <DependentUpon>ShowChartForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\showSpectrumForm.cs">
+    <Compile Include="Forms\ShowSpectrumForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\showSpectrumForm.Designer.cs">
-      <DependentUpon>showSpectrumForm.cs</DependentUpon>
+    <Compile Include="Forms\ShowSpectrumForm.Designer.cs">
+      <DependentUpon>ShowSpectrumForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SpectrumTypeState.cs" />
     <Compile Include="Filters\FilterUtils.cs" />
     <EmbeddedResource Include="Forms\FilterForm.resx">
       <DependentUpon>FilterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FirFilterForm.resx">
+      <DependentUpon>FirFilterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -124,8 +134,8 @@
     <EmbeddedResource Include="Forms\ShowChartForm.resx">
       <DependentUpon>ShowChartForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\showSpectrumForm.resx">
-      <DependentUpon>showSpectrumForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ShowSpectrumForm.resx">
+      <DependentUpon>ShowSpectrumForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

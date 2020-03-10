@@ -1,6 +1,6 @@
 ﻿namespace Signal_Processing_3.Forms
 {
-    partial class showSpectrumForm
+    partial class ShowSpectrumForm
     {
         /// <summary>
         /// Required designer variable.

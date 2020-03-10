@@ -10,6 +10,8 @@ namespace Signal_Processing_3.Forms
     {
         NotSet = 0,
         Amplitude = 1,
-        Phase = 2
+        Phase = 2,
+        AmplitudeDecibels = 3,
+        PhaseDecibels = 4
     };
 }

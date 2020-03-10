@@ -172,7 +172,7 @@ namespace Signal_Processing_3.Forms
                 double[] amplSpec = FourierTransform.AmplitudeSpectrum(preparedData, type);
                 watch.Stop();
 
-                var form0 = new showSpectrumForm(amplSpec, label, SpectrumType.Amplitude, signal.Hz, watch.ElapsedMilliseconds);
+                var form0 = new ShowSpectrumForm(amplSpec, label, SpectrumType.Amplitude, signal.Hz, watch.ElapsedMilliseconds);
                 form0.Show();
             }
             catch (Exception ex)
@@ -182,7 +182,7 @@ namespace Signal_Processing_3.Forms
         }
 
         /// <summary>
-        /// Обработчик нажатия кнопки "Фильтрация"
+        /// Обработчик нажатия кнопки "Фильтрация (Фурье)"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -191,6 +191,24 @@ namespace Signal_Processing_3.Forms
             try
             {
                 var form = new FilterForm(signal, filePath);
+                form.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Обработчик нажатия кнопки "Фильтрация (КИХ)"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void firFilterButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var form = new FirFilterForm(signal, filePath);
                 form.ShowDialog();
             }
             catch (Exception ex)

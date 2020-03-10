@@ -55,7 +55,6 @@
             this.saveToFileCheckBox = new System.Windows.Forms.CheckBox();
             this.filePathTextBox = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.fTSRadioButton = new System.Windows.Forms.RadioButton();
             this.fFTRadioButton = new System.Windows.Forms.RadioButton();
             this.bFTRadioButton = new System.Windows.Forms.RadioButton();
@@ -329,7 +328,6 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.radioButton4);
             this.groupBox5.Controls.Add(this.fTSRadioButton);
             this.groupBox5.Controls.Add(this.fFTRadioButton);
             this.groupBox5.Controls.Add(this.bFTRadioButton);
@@ -339,17 +337,6 @@
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Фильтр";
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(6, 88);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(85, 17);
-            this.radioButton4.TabIndex = 3;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "radioButton4";
-            this.radioButton4.UseVisualStyleBackColor = true;
             // 
             // fTSRadioButton
             // 
@@ -449,7 +436,6 @@
         private System.Windows.Forms.CheckBox saveToFileCheckBox;
         private System.Windows.Forms.TextBox filePathTextBox;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.RadioButton fTSRadioButton;
         private System.Windows.Forms.RadioButton fFTRadioButton;
         private System.Windows.Forms.RadioButton bFTRadioButton;

@@ -50,6 +50,7 @@
             this.minValueLabel = new System.Windows.Forms.Label();
             this.showTestAmplitudeSpectrumButton = new System.Windows.Forms.Button();
             this.maxValueLabel = new System.Windows.Forms.Label();
+            this.firFilterButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -145,6 +146,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.firFilterButton);
             this.groupBox3.Controls.Add(this.showAmplitudeSpectrumBFTButton);
             this.groupBox3.Controls.Add(this.showAmplitudeSpectrumFTSButton);
             this.groupBox3.Controls.Add(this.showAmplitudeSpectrumFFTButton);
@@ -213,7 +215,7 @@
             this.filterButton.Name = "filterButton";
             this.filterButton.Size = new System.Drawing.Size(120, 40);
             this.filterButton.TabIndex = 10;
-            this.filterButton.Text = "Фильтрация";
+            this.filterButton.Text = "Фильтрация (Фурье)";
             this.filterButton.UseVisualStyleBackColor = true;
             this.filterButton.Click += new System.EventHandler(this.filterButton_Click);
             // 
@@ -291,6 +293,16 @@
             this.maxValueLabel.TabIndex = 45;
             this.maxValueLabel.Text = "Максимальное значение";
             // 
+            // firFilterButton
+            // 
+            this.firFilterButton.Location = new System.Drawing.Point(137, 164);
+            this.firFilterButton.Name = "firFilterButton";
+            this.firFilterButton.Size = new System.Drawing.Size(120, 40);
+            this.firFilterButton.TabIndex = 18;
+            this.firFilterButton.Text = "Фильтрация (КИХ)";
+            this.firFilterButton.UseVisualStyleBackColor = true;
+            this.firFilterButton.Click += new System.EventHandler(this.firFilterButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -338,6 +350,7 @@
         private System.Windows.Forms.Button showTestAmplitudeSpectrumButton;
         private System.Windows.Forms.Label maxValueLabel;
         private System.Windows.Forms.Button showAmplitudeSpectrumBFTButton;
+        private System.Windows.Forms.Button firFilterButton;
     }
 }
 

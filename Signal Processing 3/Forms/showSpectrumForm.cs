@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace Signal_Processing_3.Forms
 {
-    public partial class showSpectrumForm : Form
+    public partial class ShowSpectrumForm : Form
     {
         double[] data;
         SpectrumType type;
         double Hz;
 
-        public showSpectrumForm(double[] data, string name, SpectrumType type, double Hz, long execTime = 0)
+        public ShowSpectrumForm(double[] data, string name, SpectrumType type, double Hz, long execTime = 0)
         {
             InitializeComponent();
 
@@ -44,21 +44,19 @@ namespace Signal_Processing_3.Forms
 
             dataChart.ChartAreas[0].AxisX.Interval = 10;
 
-            DrawChart();
+            RedrawChart();
 
         }
 
         private void changeIntervalButton_Click(object sender, EventArgs e)
         {
-            DrawChart();
+            RedrawChart();
         }
 
-        private void DrawChart()
+        private void RedrawChart()
         {
             int min = (int)minNumericUpDown.Value;
             int max = (int)maxNumericUpDown.Value;
-
-            double h = (double)Hz / data.Length;
 
             //оффициальный костыль майкрософт!
             dataChart.Series[0].Points.SuspendUpdates();
@@ -73,9 +71,38 @@ namespace Signal_Processing_3.Forms
             dataChart.ChartAreas[0].AxisX.IntervalOffset = (dataChart.ChartAreas[0].AxisX.Interval - min) % dataChart.ChartAreas[0].AxisX.Interval;
             dataChart.ChartAreas[0].AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
 
+            DrawChart(min, max);
+        }
+
+        private void DrawChart(int min, int max)
+        {
+            switch (type) {
+                case SpectrumType.AmplitudeDecibels:
+                    DrawDecibelChart(min, max);
+                    break;
+                default:
+                    DrawBaseChart(min, max);
+                    break;
+            }
+        }
+
+        private void DrawBaseChart(int min, int max)
+        {
+            double h = (double)Hz / data.Length;
+
             for (int i = (int)(min / h); i < (int)(max / h); i++)
             {
                 dataChart.Series[0].Points.AddXY(i * h, data[i]);
+            }
+        }
+
+        private void DrawDecibelChart(int min, int max)
+        {
+            double h = (double)Hz / data.Length;
+
+            for (int i = (int)(min / h); i < (int)(max / h); i++)
+            {
+                dataChart.Series[0].Points.AddXY(i * h, 20 * Math.Log(Math.Abs(data[i]), 10));
             }
         }
     }
