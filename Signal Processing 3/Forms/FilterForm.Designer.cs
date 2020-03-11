@@ -345,7 +345,6 @@
             this.fTSRadioButton.Name = "fTSRadioButton";
             this.fTSRadioButton.Size = new System.Drawing.Size(52, 17);
             this.fTSRadioButton.TabIndex = 2;
-            this.fTSRadioButton.TabStop = true;
             this.fTSRadioButton.Text = "ПФУ";
             this.fTSRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -356,13 +355,13 @@
             this.fFTRadioButton.Name = "fFTRadioButton";
             this.fFTRadioButton.Size = new System.Drawing.Size(51, 17);
             this.fFTRadioButton.TabIndex = 1;
-            this.fFTRadioButton.TabStop = true;
             this.fFTRadioButton.Text = "БПФ";
             this.fFTRadioButton.UseVisualStyleBackColor = true;
             // 
             // bFTRadioButton
             // 
             this.bFTRadioButton.AutoSize = true;
+            this.bFTRadioButton.Checked = true;
             this.bFTRadioButton.Location = new System.Drawing.Point(6, 19);
             this.bFTRadioButton.Name = "bFTRadioButton";
             this.bFTRadioButton.Size = new System.Drawing.Size(59, 17);

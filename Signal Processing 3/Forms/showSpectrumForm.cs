@@ -42,7 +42,7 @@ namespace Signal_Processing_3.Forms
             minNumericUpDown.Value = 0;
             maxNumericUpDown.Value = (int)Hz;
 
-            dataChart.ChartAreas[0].AxisX.Interval = 10;
+            dataChart.ChartAreas[0].AxisX.Interval = Math.Max(10, Math.Pow(10, (int)Math.Log10(data.Length)) / 100);
 
             RedrawChart();
 
